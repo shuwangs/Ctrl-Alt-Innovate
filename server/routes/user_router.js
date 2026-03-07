@@ -8,7 +8,7 @@ const router = Router();
 router.get('/', async (req, res) => {
     try {
         const result = await userService.getAllUsers();
-        res.status(200).json({ 
+        return res.status(200).json({ 
             status: 'success', 
             results: result.length, 
             data: { result } 
@@ -23,9 +23,21 @@ router.get('/', async (req, res) => {
 router.get('/:userId', async (req, res) => {
     console.log(req.params.userId)
     const user_id = Number(req.params.userId);
-    
+    if(!user_id ){
+        return res.status(400).json({
+            status: 'fail', 
+            message: 'Invalid Request User ID format'
+        })
+    }
     try {
         const result = await userService.getSingleUser(user_id);
+
+        if(! result) {
+            return res.status(404).json({
+                status: "fail",
+                message: 'User not Found in database'
+            })
+        }
         res.status(200).json({ 
             status: 'success', 
             data: { result } 
@@ -44,7 +56,7 @@ router.post('/', async (req, res) => {
     console.log(userData)
     try {
         const result = await userService.addUsers(userData);
-        res.status(201).json({ 
+        return res.status(201).json({ 
             status: 'success', 
             data: { result } 
         });
@@ -69,6 +81,12 @@ router.put('/:userId', async (req, res) => {
     console.log(userData)
     try {
         const result = await userService.updateUsers(userId, userData);
+        if(! result) {
+            return res.status(404).json({
+                status: "fail",
+                message: 'User not Found in database'
+            })
+        }
         res.status(200).json({ 
             status: 'success', 
             data: { result } 
