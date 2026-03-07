@@ -1,7 +1,8 @@
 import {Router} from "express";
 const router = Router();
 
-// GET ITEMS
+// GET USER. "/api/users"
+
 
 // POST ITEMS
 
