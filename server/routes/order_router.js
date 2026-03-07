@@ -1,15 +1,26 @@
-import {Router} from "express";
-const router = Router();
+import express from 'express';
+import { pool } from '../db/pool.js';
 
-// GET order
+const router = express.Router();
 
-// POST order
+// GET all orders with user info
+router.get('/', async (req, res, next) => {
+  try {
+    const result = await pool.query(
+      `SELECT 
+        orders.id AS order_id,
+        orders.status,
+        orders.created_at,
+        users.username,
+        users.useremail
+       FROM orders
+       INNER JOIN users
+         ON orders.user_id = users.id
+       ORDER BY orders.id ASC`
+    );
 
-
-// PUT order
-
-
-// DELTE order
-
-
-export default router;
+    res.json(result.rows);
+  } catch (err) {
+    next(err);
+  }
+});
