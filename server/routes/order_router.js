@@ -5,7 +5,6 @@ const router = express.Router();
 
 // GET all orders with user info
 
-export default router;
 router.get('/', async (req, res) => {
   try {
     const orders = await orderService.getAllOrders();
@@ -45,3 +44,22 @@ router.get('/:id', async (req, res) => {
     });
   }
 });
+
+router.get('/:id/items', async (req, res) => {
+  try {
+    const items = await orderService.getOrderItems(req.params.id);
+
+    res.status(200).json({
+      status: 'success',
+      results: items.length,
+      data: { items },
+    });
+  } catch (err) {
+    res.status(err.statusCode || 500).json({
+      status: 'fail',
+      message: err.message || 'Internal Server Error',
+    });
+  }
+});
+
+export default router;
