@@ -48,6 +48,39 @@ router.get('/:id', async (req, res) => {
 });
 
 //Create order *
+
+/**
+ * @swagger
+ * /api/orders:
+ *   post:
+ *     summary: Create a new order
+ *     tags:
+ *       - Orders
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - user_id
+ *               - status
+ *             properties:
+ *               user_id:
+ *                 type: integer
+ *                 example: 1
+ *               status:
+ *                 type: string
+ *                 example: pending
+ *     responses:
+ *       201:
+ *         description: Order created successfully
+ *       400:
+ *         description: Invalid request body
+ *       500:
+ *         description: Internal server error
+ */
+
 router.post('/', async (req, res) => {
   console.log('create order');
   try {
@@ -104,6 +137,29 @@ router.delete('/:id', async (req, res) => {
     }
 
     // Delete order
+
+    /**
+     * @swagger
+     * /api/orders/{id}:
+     *   delete:
+     *     summary: Delete an order by ID
+     *     tags:
+     *       - Orders
+     *     parameters:
+     *       - in: path
+     *         name: id
+     *         required: true
+     *         schema:
+     *           type: integer
+     *         description: The ID of the order to delete
+     *     responses:
+     *       200:
+     *         description: Order deleted successfully
+     *       404:
+     *         description: Order not found
+     *       500:
+     *         description: Internal server error
+     */
     res.status(200).json({
       status: 'success',
       message: 'Order deleted successfully',
