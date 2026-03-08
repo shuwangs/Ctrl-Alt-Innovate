@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
         const result = await userService.getAllUsers();
         return res.status(200).json({ 
             status: 'success', 
-            results: result.length, 
             data: { result } 
         });
     } catch(err){
