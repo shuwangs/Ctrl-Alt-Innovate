@@ -79,4 +79,15 @@ export const updateOrder = async (id, { status }) => {
   return rows[0];
 };
 
-//
+/// Delete order
+export const deleteOrder = async (id) => {
+  const { rows } = await pool.query(
+    `
+        DELETE FROM orders
+        WHERE id = $1
+        RETURNING *
+    `,
+    [id]
+  );
+  return rows[0];
+};
