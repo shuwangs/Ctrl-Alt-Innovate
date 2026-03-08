@@ -25,7 +25,7 @@ export const getOrderById = async (id) => {
             orders.id AS order_id,
             orders.status,
             users.username,
-            users.useremail,
+            users.useremail
         FROM orders
         JOIN users
           ON orders.user_id = users.id
