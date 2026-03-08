@@ -25,6 +25,12 @@ router.get('/', async (req, res) => {
 
 // GET order by id
 router.get('/:id', async (req, res) => {
+  if(!Number(req.params.id)){
+    return res.status(400).json({
+          status: 'fail', 
+          message: 'Invalid Request Order ID format'
+    })
+  }
   try {
     const order = await orderService.getOrderById(req.params.id);
 
