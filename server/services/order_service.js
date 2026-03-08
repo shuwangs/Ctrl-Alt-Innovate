@@ -1,5 +1,6 @@
 import pool from '../db/db.js';
 
+// get all orders
 export const getAllOrders = async () => {
   const { rows } = await pool.query(`
         SELECT 
@@ -16,6 +17,7 @@ export const getAllOrders = async () => {
   return rows;
 };
 
+// get order by id with items and user info
 export const getOrderById = async (id) => {
   const { rows } = await pool.query(
     `
@@ -50,3 +52,31 @@ export const getOrderItems = async (id) => {
   );
   return rows;
 };
+// Create order
+export const createOrder = async ({ user_id, status }) => {
+  const { rows } = await pool.query(
+    `
+        INSERT INTO orders (user_id, status)
+        VALUES ($1, $2)
+        RETURNING *
+    `,
+    [user_id, status]
+  );
+  return rows[0];
+};
+
+// Update order
+export const updateOrder = async (id, { status }) => {
+  const { rows } = await pool.query(
+    `
+        UPDATE orders
+        SET status = $1
+        WHERE id = $2
+        RETURNING *
+    `,
+    [status, id]
+  );
+  return rows[0];
+};
+
+//
