@@ -40,8 +40,6 @@ router.get('/', async (req, res) => {
  *       - in: path
  *         name: userId
  *         required: true
- *         schema:
- *           type: integer
  *         description: The user ID
  *     responses:
  *       200:
@@ -112,8 +110,6 @@ router.post('/', async (req, res) => {
  *       - in: path
  *         name: userId
  *         required: true
- *         schema:
- *           type: integer
  *         description: The ID of the user to update
  *     requestBody:
  *       required: true
