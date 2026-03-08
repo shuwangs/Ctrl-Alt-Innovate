@@ -116,6 +116,7 @@ GET /api/stats
 - Service and route logic implementation
 - Swagger documentation implementation
 - API testing
+- slides presentation
 
 **Shu Wang**
 - Backend project initialization
