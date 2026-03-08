@@ -45,7 +45,7 @@ export const getOrderItems = async (id) => {
         WHERE order_id = $1
     `,
     [id]
-  );.
+  );
   return rows;
 };
 // Create order
