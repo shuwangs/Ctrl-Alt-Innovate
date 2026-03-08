@@ -47,7 +47,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-//Create order *
 
 /**
  * @swagger
@@ -80,7 +79,6 @@ router.get('/:id', async (req, res) => {
  *       500:
  *         description: Internal server error
  */
-
 router.post('/', async (req, res) => {
   console.log('create order');
   try {
@@ -100,6 +98,14 @@ router.post('/', async (req, res) => {
 
 //Update order
 router.put('/:id', async (req, res) => {
+
+  if(!Number(req.params.id)){
+    return res.status(400).json({
+          status: 'fail', 
+          message: 'Invalid Request Order ID format'
+    })
+  }
+
   try {
     const updatedOrder = await orderService.updateOrder(
       req.params.id,
@@ -125,7 +131,35 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /api/orders/{id}:
+ *   delete:
+ *     summary: Delete an order by ID
+ *     tags:
+ *       - Orders
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The ID of the order to delete
+ *     responses:
+ *       200:
+ *         description: Order deleted successfully
+ *       404:
+ *         description: Order not found
+ *       500:
+ *         description: Internal server error
+*/
 router.delete('/:id', async (req, res) => {
+  if(!Number(req.params.id)){
+    return res.status(400).json({
+          status: 'fail', 
+          message: 'Invalid Request Order ID format'
+    })
+  }
   try {
     const deletedOrder = await orderService.deleteOrder(req.params.id);
 
@@ -136,30 +170,6 @@ router.delete('/:id', async (req, res) => {
       });
     }
 
-    // Delete order
-
-    /**
-     * @swagger
-     * /api/orders/{id}:
-     *   delete:
-     *     summary: Delete an order by ID
-     *     tags:
-     *       - Orders
-     *     parameters:
-     *       - in: path
-     *         name: id
-     *         required: true
-     *         schema:
-     *           type: integer
-     *         description: The ID of the order to delete
-     *     responses:
-     *       200:
-     *         description: Order deleted successfully
-     *       404:
-     *         description: Order not found
-     *       500:
-     *         description: Internal server error
-     */
     res.status(200).json({
       status: 'success',
       message: 'Order deleted successfully',
