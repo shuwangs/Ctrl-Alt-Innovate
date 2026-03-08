@@ -3,8 +3,17 @@ import * as userService from "../services/user_service.js";
 
 const router = Router();
 
-// GET USER. "/api/users"
-
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get all users
+ *     tags:
+ *       - Users
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved all users
+ */
 router.get('/', async (req, res) => {
     try {
         const result = await userService.getAllUsers();
@@ -19,6 +28,28 @@ router.get('/', async (req, res) => {
     };
 })
 
+/**
+ * @swagger
+ * /api/users/{userId}:
+ *   get:
+ *     summary: Get a single user by ID
+ *     tags:
+ *       - Users
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The user ID
+ *     responses:
+ *       200:
+ *         description: Successfully retrieved the user
+ *       400:
+ *         description: Invalid user ID format
+ *       404:
+ *         description: User not found
+ */
 router.get('/:userId', async (req, res) => {
     console.log(req.params.userId)
     const user_id = Number(req.params.userId);
