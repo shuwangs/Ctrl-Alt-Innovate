@@ -26,14 +26,10 @@ export const getOrderById = async (id) => {
             orders.status,
             users.username,
             users.useremail,
-            items.name AS item_name,
-            items.price,
-            items.quantity
         FROM orders
         JOIN users
           ON orders.user_id = users.id
-        JOIN items
-          ON items.order_id = orders.id
+
         WHERE orders.id = $1
     `,
     [id]
@@ -49,7 +45,7 @@ export const getOrderItems = async (id) => {
         WHERE order_id = $1
     `,
     [id]
-  );
+  );.
   return rows;
 };
 // Create order
