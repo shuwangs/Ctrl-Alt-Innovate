@@ -14,7 +14,6 @@ export const getItermsFromOrder = async (orderID) =>{
         LEFT JOIN orders AS o ON i.order_id = o.id
         LEFT JOIN users AS u ON o.user_id = u.id
         WHERE i.order_id = $1`, [orderID]);
-    console.log(rows);
     return rows ;
 }
 
@@ -32,6 +31,5 @@ export const addItermsToOrder = async (orderID) =>{
         LEFT JOIN orders AS o ON i.order_id = o.id
         LEFT JOIN users AS u ON o.user_id = u.id
         WHERE i.order_id = $1`, [orderID]);
-    console.log(rows);
     return rows ;
 }

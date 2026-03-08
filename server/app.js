@@ -21,12 +21,4 @@ app.use("/api/orders", orderRouter);
 app.use("/api/items", itemRouter);
 app.use("/api/stats", statsRouter);
 
-
-pool.connect()
-  .then(() => {
-    console.log("Database connected successfully");
-  })
-  .catch((err) => {
-    console.error(" Database connection failed", err);
-  });
 export default app;

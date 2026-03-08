@@ -2,7 +2,6 @@ import pool from '../db/db.js';
 
 
 export const getTotals = async ()=> {
-    console.log ("Getting stats...");
     const {rows} = await pool.query(
         `
         SELECT
@@ -11,6 +10,5 @@ export const getTotals = async ()=> {
         (SELECT COUNT (*) FROM items) AS total_items
         `
     ) 
-    console.log(rows);
     return rows[0];
 }
