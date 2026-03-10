@@ -33,10 +33,17 @@ This relational structure ensures clear data relationships and supports efficien
   Integrated Swagger (OpenAPI) documentation to provide an interactive interface for exploring and testing API endpoints.
 
 - **RESTful Best Practices**  
-  The API strictly follows RESTful conventions, using appropriate HTTP methods (`GET`, `POST`, `PUT/PATCH`, `DELETE`) and standard HTTP status codes (`200`, `201`, `400`, `404`) to ensure clear and predictable API behavior.
+  The API strictly follows RESTful conventions, using appropriate HTTP methods (`GET`, `POST`, `PUT/PATCH`, `DELETE`) and standard HTTP status codes (`200`, `201`, `400`, `404`, `429`, `500`) to ensure clear and predictable API behavior.
 
 - Input Validation
 To prevent database errors and ensure data integrity, we implemented manual validation for critical path parameters. For example, the user_id is strictly validated to ensure it is a valid number. If the input is malformed (e.g., a string or undefined), the API immediately terminates the request and returns a `400` Bad Request status code with a descriptive error message.
+
+- Rate Limiting
+To protect the API from abuse and excessive traffic, we implemented rate limiting. This mechanism restricts the number of requests a client can make within a specified time window.
+For example: 100 requests per 15 minutes per IP`
+
+If a client exceeds this limit, the API responds with text like below.
+![alt text](image.png)
 
 ## Setup Instructions
 
@@ -61,11 +68,11 @@ Update the database settings.
 
 ### 4. Create database
 
-createdb your_database_name
+`createdb your_database_name`
 
 ### 5. Restore database dump
 
-psql -d your_database_name -f db/db_dump.sql
+`psql -d your_database_name -f db/db_dump.sql`
 
 ### 6. Start the server
 
@@ -79,14 +86,14 @@ http://localhost:3000/api-docs
 ### Example Endpoints
 #### Users
 
-GET /api/users  
+>GET /api/users  
 GET /api/users/{userId}  
 POST /api/users  
 PUT /api/users/{userId}  
 DELETE /api/users/{userId}
 
 #### Orders
-GET /api/orders  
+> GET /api/orders  
 GET /api/orders/{orderId}  
 POST /api/orders  
 PUT /api/orders/{orderId}  
@@ -99,9 +106,6 @@ GET /api/items/{orderId}
 #### Stats
 
 GET /api/stats
-
-### Example Response
-
 
 
 ## Contributors
